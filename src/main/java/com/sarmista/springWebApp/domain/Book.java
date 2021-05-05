@@ -1,5 +1,6 @@
 package com.sarmista.springWebApp.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -18,8 +19,8 @@ public class Book {
 	@ManyToMany
     @JoinTable(name = "author_book", joinColumns = @JoinColumn(name = "book_id"),
             inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private Set<Author> authors = new HashSet<>();
 	
-	private Set<Author> author;
 	
 	
 	public Book() {
@@ -28,11 +29,10 @@ public class Book {
 
 
 
-	public Book(String title, String isbn, Set<Author> author) {
+	public Book(String title, String isbn) {
 		super();
 		this.title = title;
 		this.isbn = isbn;
-		this.author = author;
 	}
 
 
@@ -61,14 +61,14 @@ public class Book {
 
 
 	public Set<Author> getAuthor() {
-		return author;
+		return authors;
 	}
 
 
 
 
 	public void setAuthor(Set<Author> author) {
-		this.author = author;
+		this.authors = author;
 	}
 
 
@@ -87,7 +87,7 @@ public class Book {
 
 	@Override
 	public String toString() {
-		return "Book [id=" + id + ", title=" + title + ", isbn=" + isbn + ", author=" + author + "]";
+		return "Book [id=" + id + ", title=" + title + ", isbn=" + isbn + ", author=" + authors + "]";
 	}
 
 
